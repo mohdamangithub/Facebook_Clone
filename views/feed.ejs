@@ -1,0 +1,582 @@
+<% include ./partials/header.ejs %>
+<style>
+    #nav-prt2 .square:nth-child(1) {
+    border: none;
+    color: #000;
+  }
+  #nav-prt2 .square:nth-child(1) i {
+    color: transparent;
+    -webkit-text-stroke: 2.5px black;
+  }
+
+  .page1-child{
+    margin-left: 74px;
+  }
+  #allPosts{
+    display: none;
+  }
+  @media (max-width: 600px) {
+    #left, #right{
+    display: none;
+  }
+  #allPosts {
+    /* overflow: hidden; */
+    border-radius: 7px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4vw;
+  }
+  .image {
+    padding: 0.4vw;
+    border: 3px solid royalblue;
+    width: 14vw;
+    height: 13vw;
+    border-radius: 50%;
+    overflow: hidden;
+    /* background-color: royalblue; */
+  }
+  .image img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+  }
+  .name p {
+    font-size: 2vw;
+    width: 100%;
+  }
+  #container{
+    padding-top: 3vw;
+  }
+  
+  }
+ 
+
+</style>
+        <div id="container">
+          <div id="allPosts">
+            <% allPostData.reverse().forEach(function(data){ %>
+              <% if(data.userId.username === user){ %>
+                <div style="background-color: #fff;" id="posts-mb">
+                  <div class="el3-top">
+                    <div class="el3-top-left">
+                     <div class="image">
+                        <img
+                          style="object-fit: cover"
+                          src="../images/profiledp/<%=data.userId.profilepic%>"
+                          alt=""
+                        />
+                      </div>
+                      <% if(data.userId.username !== userdata.username){ %>
+                        <a
+                        style="text-decoration: none; color: #000; display: flex; align-items: center; gap: 4vw;"
+                        href="/loguser/<%=data.userId.username%>"
+                        >
+                      <div class="name">
+                          <h3><%=data.userId.fullname%></h3>
+                          <p><%=data.time%></p>
+                        </div></a
+                      >
+                      <% } else{ %>
+                      <a style="text-decoration: none; color: #000" href="/loguser"
+                        ><div class="name">
+                          <h3><%=data.userId.fullname%></h3>
+                          <p><%=data.time%></p>
+                        </div></a
+                      >
+                      <% } %>
+                    </div>
+                    <div class="el3-top-right">
+                      <div class="icons">
+                        <i class="ri-more-fill"></i>
+                      </div>
+                      <div class="icons">
+                        <% if (!data.picture) { %>
+                          <a href="/delete/<%=data.post%>" style="text-decoration: none; color: #000;"><i class="ri-close-fill"></i></a>
+                          <% } else{ %>
+                            <a href="/delete/<%=data.picture%>/<%=data.post%>" style="text-decoration: none; color: #000;"><i class="ri-close-fill"></i></a>
+                            <% } %>
+                      </div>
+                    </div>
+                  </div>
+                  
+                    
+                  <% if (!data.picture) { %>
+                    <h1 style="padding: 4vw 0vw; font-size: 5vw; font-weight: 500;"><%=data.post%></h1>
+                    <% } else{ %>
+                     <h1 style="padding: 4vw 0vw; font-size: 5vw; font-weight: 500;"><%=data.post%></h1>
+                      <img id="post-photo" style="width: 100%; height: 300px; margin-bottom: 1vw; object-fit: cover; display: flex;" src="/images/profiledp/<%=data.picture%>" alt="">
+                      <% } %>
+                  <div class="el3-btm">
+                    <div class="el3-btm-child">
+                      <% if(data.likes.length > 0){ %>
+                      <i style="color: royalblue;font-size: 4vw;" class="ri-thumb-up-fill"></i>
+                      <p style="font-size: 4vw;"><%=data.likes.length%></p>
+                      <% } %>
+                    </div>
+                    <div class="el3-btm-child2">
+                      <div class="left">
+                        <a id="like" href="/like/<%=data._id%>">
+                          <% if(data.likes.indexOf(userdata._id) === -1){ %>
+                          <i style="font-size: 4vw;" class="ri-thumb-up-line"></i>
+                          <% } else{ %>
+                          <i style="color: royalblue; font-size: 4vw;" class="ri-thumb-up-fill"></i>
+                          <% } %> <% if(data.likes.indexOf(userdata._id) === -1){ %>
+                          <p style="font-size: 4vw;">Like</p>
+                          <% } else{ %>
+                          <p style="color: royalblue;font-size: 4vw;">Like</p>
+                          <% } %>
+                        </a>
+                      </div>
+            
+                      <div class="left comments">
+                        <i style="font-size: 4vw;" class="ri-chat-1-line"></i>
+                        <p style="font-size: 4vw;">Comment</p>
+                      </div>
+                      <div class="left">
+                        <i style="font-size: 4vw;" class="ri-share-forward-line"></i>
+                        <p style="font-size: 4vw;">Share</p>
+                      </div>
+                    </div>
+                  </div>
+                  <% if(data.comments.length > 1){ %>
+                  
+                  <% } %> <% data.comments.forEach(function(comm){ %>
+                  <div style=" padding: 0 5.5vw; padding-top: 3.5vw;" class="comment-section">
+                    <img  src="../images/profiledp/<%=comm.commentorpic%>" alt="" />
+                    <div style=" box-shadow: 0px 0px 5px rgb(188, 188, 188);  padding-bottom: 2.5vw;padding-right: 2.5vw; border-radius: 7px;" id="commentor">
+                      <a style=" box-shadow: 0px 0px 5px rgb(188, 188, 188); border-radius: 7px; background-color: #dadadaf5;"  href="">
+                        <h5><%=comm.commentor%></h5>
+                        <p style="font-weight: 400;"><%=comm.comment%></p>
+                      </a>
+                      <div id="comment-like">
+                        <h6 style="font-size: 2.6vw;">Like</h6>
+                        <h6 style="font-size: 2.6vw;">Reply</h6>
+                        <h6 style="font-size: 2.6vw;">Share</h6>
+                        <p style="font-size: 1.7vw;">2<%=comm.time%></p>
+                      </div>
+                    </div>
+                  </div>
+                  <% }) %>
+                  <form
+                    class="commentForm"
+                    action="/submitComment/<%=data._id%>"
+                    method="post"
+                  >
+                    <img src="../images/profiledp/<%=userdata.profilepic%>" alt="" />
+                    <input
+                      class="commentInp"
+                      name="comment"
+                      type="text"
+                      placeholder="Write Comment Here"
+                    />
+                    <div class="closeComment">
+                      <i class="ri-close-fill"></i>
+                    </div>
+                  </form>
+                </div>
+              <% } else {%>
+               <div style="background-color: #fff;" id="posts-mb">
+                  <div class="el3-top">
+                    <div class="el3-top-left">
+                     <div class="image">
+                        <img
+                          style="object-fit: cover"
+                          src="../images/profiledp/<%=data.userId.profilepic%>"
+                          alt=""
+                        />
+                      </div>
+                      <% if(data.userId.username !== userdata.username){ %>
+                        <a
+                        style="text-decoration: none; color: #000; display: flex; align-items: center; gap: 4vw;"
+                        href="/loguser/<%=data.userId.username%>"
+                        >
+                      <div class="name">
+                          <h3><%=data.userId.fullname%></h3>
+                          <p><%=data.time%></p>
+                        </div></a
+                      >
+                      <% } else{ %>
+                      <a style="text-decoration: none; color: #000" href="/loguser"
+                        ><div class="name">
+                          <h3><%=data.userId.fullname%></h3>
+                          <p><%=data.time%></p>
+                        </div></a
+                      >
+                      <% } %>
+                    </div>
+                    <div class="el3-top-right" style="opacity: 0;">
+                      <div class="icons">
+                        <i class="ri-more-fill"></i>
+                      </div>
+                      <div class="icons">
+                        <i class="ri-close-fill"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <% if (!data.picture) { %>
+                    <h1 style="padding: 4vw 0vw; font-size: 5vw; font-weight: 500;"><%=data.post%></h1>
+                    <% } else{ %>
+                     <h1 style="padding: 4vw 0vw; font-size: 5vw; font-weight: 500;"><%=data.post%></h1>
+                      <img id="post-photo" style="width: 100%; height: 300px; margin-bottom: 1vw; object-fit: cover; display: flex;" src="/images/profiledp/<%=data.picture%>" alt="">
+                      <% } %>
+                  <div class="el3-btm">
+                    <div class="el3-btm-child">
+                      <% if(data.likes.length > 0){ %>
+                      <i style="color: royalblue;font-size: 4vw;" class="ri-thumb-up-fill"></i>
+                      <p style="font-size: 4vw;"><%=data.likes.length%></p>
+                      <% } %>
+                    </div>
+                    <div class="el3-btm-child2">
+                      <div class="left">
+                        <a id="like" href="/like/<%=data._id%>">
+                          <% if(data.likes.indexOf(userdata._id) === -1){ %>
+                          <i style="font-size: 4vw;" class="ri-thumb-up-line"></i>
+                          <% } else{ %>
+                          <i style="color: royalblue; font-size: 4vw;" class="ri-thumb-up-fill"></i>
+                          <% } %> <% if(data.likes.indexOf(userdata._id) === -1){ %>
+                          <p style="font-size: 4vw;">Like</p>
+                          <% } else{ %>
+                          <p style="color: royalblue;font-size: 4vw;">Like</p>
+                          <% } %>
+                        </a>
+                      </div>
+            
+                      <div class="left comments">
+                        <i style="font-size: 4vw;" class="ri-chat-1-line"></i>
+                        <p style="font-size: 4vw;">Comment</p>
+                      </div>
+                      <div class="left">
+                        <i style="font-size: 4vw;" class="ri-share-forward-line"></i>
+                        <p style="font-size: 4vw;">Share</p>
+                      </div>
+                    </div>
+                  </div>
+                  <% if(data.comments.length > 1){ %>
+                  
+                  <% } %> <% data.comments.forEach(function(comm){ %>
+                  <div style=" padding: 0 5.5vw; padding-top: 3.5vw;" class="comment-section">
+                    <img  src="../images/profiledp/<%=comm.commentorpic%>" alt="" />
+                    <div style=" box-shadow: 0px 0px 5px rgb(188, 188, 188);  padding-bottom: 2.5vw;padding-right: 2.5vw; border-radius: 7px;" id="commentor">
+                      <a style=" box-shadow: 0px 0px 5px rgb(188, 188, 188); border-radius: 7px; background-color: #dadadaf5;"  href="">
+                        <h5><%=comm.commentor%></h5>
+                        <p style="font-weight: 400;"><%=comm.comment%></p>
+                      </a>
+                      <div id="comment-like">
+                        <h6 style="font-size: 2.6vw;">Like</h6>
+                        <h6 style="font-size: 2.6vw;">Reply</h6>
+                        <h6 style="font-size: 2.6vw;">Share</h6>
+                        <p style="font-size: 1.7vw;">2<%=comm.time%></p>
+                      </div>
+                    </div>
+                  </div>
+                  <% }) %>
+                  <form
+                    class="commentForm"
+                    action="/submitComment/<%=data._id%>"
+                    method="post"
+                  >
+                    <img src="../images/profiledp/<%=userdata.profilepic%>" alt="" />
+                    <input
+                      class="commentInp"
+                      name="comment"
+                      type="text"
+                      placeholder="Write Comment Here"
+                    />
+                    <div class="closeComment">
+                      <i class="ri-close-fill"></i>
+                    </div>
+                  </form>
+                </div>
+              <% } %>
+           
+              <% }) %>
+            </div>
+          <div  style="background-color: #ffffff;" class="scrollbar" id="left">
+            <div id="rect1" style="padding-left: 10px;" class="rect">
+            
+                <h4 style="font-size: 25px;">Feeds</h4>
+              </div>
+            
+            <div style="background-color: #eaf3ff;" class="rect">
+              <div style="background-color: royalblue;" class="circle">
+                <i style="color: #fff;" class="ri-radio-fill"></i>
+              </div>
+              <h4>All</h4>
+            </div>
+            <div class="rect">
+              <div style="background-color: #f0ecec;" class="circle">
+                <i style="color: #000;" id="group" class="ri-star-fill"></i>
+              </div>
+              <h4>Favorites</h4>
+            </div>
+            <div class="rect">
+              <div style="background-color: #f0ecec;" class="circle">
+                <i style="color: #000;" class="ri-group-fill"></i>
+              </div>
+              <h4>Friends</h4>
+            </div>
+            <div  class="rect">
+              <div style="background-color:#f0ecec;" class="circle">
+                <i style="color: #000;" id="group" class="ri-group-2-fill"></i>
+              </div>
+              <h4>Groups</h4>
+            </div>
+            <div class="rect">
+              <div style="background-color: #f0ecec; border-radius: 50%;" class="circle">
+                <i style="color: #000;" id="group" class="ri-flag-2-fill"></i>
+              </div>
+              <h4>Pages</h4>
+            </div>
+          
+          </div>
+         <div style="overflow: auto;" id="right">
+          <div class="page1-child">
+            <% allPostData.forEach(function(data){ %>
+              <% if(data.userId.username === user){ %>
+                <div class="elem3" id="elem3">
+                  <div class="el3-top">
+                    <div class="el3-top-left">
+                      <div class="image">
+                        <img
+                          style="object-fit: cover"
+                          src="../images/profiledp/<%=data.userId.profilepic%>"
+                          alt=""
+                        />
+                      </div>
+                      <% if(data.userId.username !== userdata.username){ %>
+                      <a
+                        style="text-decoration: none; color: #000"
+                        href="/loguser/<%=data.userId.username%>"
+                        ><div class="name">
+                          <h3><%=data.userId.fullname%></h3>
+                          <p><%=data.time%></p>
+                        </div></a
+                      >
+                      <% } else{ %>
+                      <a style="text-decoration: none; color: #000" href="/loguser"
+                        ><div class="name">
+                          <h3><%=data.userId.fullname%></h3>
+                          <p><%=data.time%></p>
+                        </div></a
+                      >
+                      <% } %>
+                    </div>
+                    <div class="el3-top-right">
+                      <div class="icons">
+                        <i class="ri-more-fill"></i>
+                      </div>
+                      <div class="icons">
+                        <% if (!data.picture) { %>
+                          <a href="/delete/<%=data.post%>" style="text-decoration: none; color: #000;"><i class="ri-close-fill"></i></a>
+                          <% } else{ %>
+                            <a href="/delete/<%=data.picture%>/<%=data.post%>" style="text-decoration: none; color: #000;"><i class="ri-close-fill"></i></a>
+                            <% } %>
+                       
+                      </div>
+                    </div>
+                  </div>
+                      
+                     
+                  <% if (!data.picture) { %>
+                    <h1 style="font-size: 20px; font-weight: 500;"><%=data.post%></h1>
+                    <% } else{ %>
+                      <h1 style="font-size: 20px; font-weight: 500;"><%=data.post%></h1>
+                      <img id="post-photo" style="width: 100%; height: 300px; object-fit: cover; display: flex;" src="/images/profiledp/<%=data.picture%>" alt="">
+                      <% } %>
+          
+                  <div class="el3-btm">
+                    <div class="el3-btm-child">
+                      <% if(data.likes.length > 0){ %>
+                      <i style="color: royalblue" class="ri-thumb-up-fill"></i>
+                      <p><%=data.likes.length%></p>
+                      <% } %>
+                    </div>
+                    <div class="el3-btm-child2">
+                      <div class="left">
+                        <a id="like" href="/like/<%=data._id%>">
+                          <% if(data.likes.indexOf(userdata._id) === -1){ %>
+                          <i class="ri-thumb-up-line"></i>
+                          <% } else{ %>
+                          <i style="color: royalblue" class="ri-thumb-up-fill"></i>
+                          <% } %> <% if(data.likes.indexOf(userdata._id) === -1){ %>
+                          <p>Like</p>
+                          <% } else{ %>
+                          <p style="color: royalblue">Like</p>
+                          <% } %>
+                        </a>
+                      </div>
+        
+                      <div class="left comments">
+                        <i class="ri-chat-1-line"></i>
+                        <p>Comment</p>
+                      </div>
+                      <div class="left">
+                        <i class="ri-share-forward-line"></i>
+                        <p>Share</p>
+                      </div>
+                    </div>
+                  </div>
+                  <% if(data.comments.length > 1){ %>
+                  <h4
+                    style="display: flex; opacity: 0.5; align-items: center; gap: 4px"
+                    class="arrow-left"
+                  >
+                    <span style="font-size: 20px"
+                      ><i class="ri-arrow-down-s-line"></i></span
+                    >hide all comments
+                  </h4>
+                  <% } %> <% data.comments.forEach(function(comm){ %>
+                  <div class="comment-section">
+                    <img src="../images/profiledp/<%=comm.commentorpic%>" alt="" />
+                    <div id="commentor">
+                      <a href="">
+                        <h5><%=comm.commentor%></h5>
+                        <p><%=comm.comment%></p>
+                      </a>
+                      <div id="comment-like">
+                        <h6>Like</h6>
+                        <h6>Reply</h6>
+                        <h6>Share</h6>
+                        <p>2<%=comm.time%></p>
+                      </div>
+                    </div>
+                  </div>
+                  <% }) %>
+                  <form
+                    class="commentForm"
+                    action="/submitComment/<%=data._id%>"
+                    method="post"
+                  >
+                    <img src="../images/profiledp/<%=userdata.profilepic%>" alt="" />
+                    <input
+                      class="commentInp"
+                      name="comment"
+                      type="text"
+                      placeholder="Write Comment Here"
+                    />
+                    <div class="closeComment">
+                      <i class="ri-close-fill"></i>
+                    </div>
+                  </form>
+                </div>
+             <% } else { %>
+              <div class="elem3" id="elem3">
+                <div class="el3-top">
+                  <div class="el3-top-left">
+                    <div class="image">
+                      <img
+                        style="object-fit: cover"
+                        src="../images/profiledp/<%=data.userId.profilepic%>"
+                        alt=""
+                      />
+                    </div>
+                    <% if(data.userId.username !== userdata.username){ %>
+                    <a
+                      style="text-decoration: none; color: #000"
+                      href="/loguser/<%=data.userId.username%>"
+                      ><div class="name">
+                        <h3><%=data.userId.fullname%></h3>
+                        <p><%=data.time%></p>
+                      </div></a
+                    >
+                    <% } else{ %>
+                    <a style="text-decoration: none; color: #000" href="/loguser"
+                      ><div class="name">
+                        <h3><%=data.userId.fullname%></h3>
+                        <p><%=data.time%></p>
+                      </div></a
+                    >
+                    <% } %>
+                  </div>
+                </div>
+                
+                <% if (!data.picture) { %>
+                  <h1 style="font-size: 20px; font-weight: 500;"><%=data.post%></h1>
+                  <% } else{ %>
+                    <h1 style="font-size: 20px; font-weight: 500;"><%=data.post%></h1>
+                    <img id="post-photo" style="width: 100%; height: 300px; object-fit: cover; display: flex;" src="/images/profiledp/<%=data.picture%>" alt="">
+                    <% } %>
+             
+                <div class="el3-btm">
+                  <div class="el3-btm-child">
+                    <% if(data.likes.length > 0){ %>
+                    <i style="color: royalblue" class="ri-thumb-up-fill"></i>
+                    <p><%=data.likes.length%></p>
+                    <% } %>
+                  </div>
+                  <div class="el3-btm-child2">
+                    <div class="left">
+                      <a id="like" href="/like/<%=data._id%>">
+                        <% if(data.likes.indexOf(userdata._id) === -1){ %>
+                        <i class="ri-thumb-up-line"></i>
+                        <% } else{ %>
+                        <i style="color: royalblue" class="ri-thumb-up-fill"></i>
+                        <% } %> <% if(data.likes.indexOf(userdata._id) === -1){ %>
+                        <p>Like</p>
+                        <% } else{ %>
+                        <p style="color: royalblue">Like</p>
+                        <% } %>
+                      </a>
+                    </div>
+      
+                    <div class="left comments">
+                      <i class="ri-chat-1-line"></i>
+                      <p>Comment</p>
+                    </div>
+                    <div class="left">
+                      <i class="ri-share-forward-line"></i>
+                      <p>Share</p>
+                    </div>
+                  </div>
+                </div>
+                <% if(data.comments.length > 1){ %>
+                <h4
+                  style="display: flex; opacity: 0.5; align-items: center; gap: 4px"
+                  class="arrow-left"
+                >
+                  <span style="font-size: 20px"
+                    ><i class="ri-arrow-down-s-line"></i></span
+                  >hide all comments
+                </h4>
+                <% } %> <% data.comments.forEach(function(comm){ %>
+                <div class="comment-section">
+                  <img src="../images/profiledp/<%=comm.commentorpic%>" alt="" />
+                  <div id="commentor">
+                    <a href="">
+                      <h5><%=comm.commentor%></h5>
+                      <p><%=comm.comment%></p>
+                    </a>
+                    <div id="comment-like">
+                      <h6>Like</h6>
+                      <h6>Reply</h6>
+                      <h6>Share</h6>
+                      <p>2<%=comm.time%></p>
+                    </div>
+                  </div>
+                </div>
+                <% }) %>
+                <form
+                  class="commentForm"
+                  action="/submitComment/<%=data._id%>"
+                  method="post"
+                >
+                  <img src="../images/profiledp/<%=userdata.profilepic%>" alt="" />
+                  <input
+                    class="commentInp"
+                    name="comment"
+                    type="text"
+                    placeholder="Write Comment Here"
+                  />
+                  <div class="closeComment">
+                    <i class="ri-close-fill"></i>
+                  </div>
+                </form>
+              </div>
+             <% } %>
+            <% }) %>
+          </div>
+         </div>
+        </div>
+  <% include ./partials/footer2.ejs %>

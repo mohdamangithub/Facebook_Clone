@@ -1,0 +1,64 @@
+<% include ./partials/header.ejs %>
+<style>
+    #container{
+        padding: 40px 50px;
+    }
+  .elm {
+    display: flex;
+    align-items: center;
+    gap: 30px; 
+    height: 120px;
+  }
+  .elm img {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .elm a{
+    text-decoration: none;
+    color: #000;
+  }
+  .elm p{
+    font-weight: 500;
+    font-size: 15px;
+    color: grey;
+  }
+  .container{
+       display: flex;
+       align-items: center;
+       justify-content: center;
+    }
+    .container h1{
+        font-size: 90px;
+        font-weight: 550;
+        word-spacing: 10px;
+        color: #0000002b;
+    }
+</style>
+<% if(searchUser){ %>
+<div id="container">
+        <div class="elm">
+            <img src="../images/profiledp/<%=searchUser.profilepic%>" alt="" />
+            <div id="elm-child">
+                <% if(searchUser.username !== userdata.username){ %>
+                    <a href="/loguser/<%=searchUser.username%>">
+                        <h1><%=searchUser.fullname%></h1>
+                        <p><%=searchUser.posts.length%> Posts</p>
+                    </a>
+                <% } else{ %>
+                    <a href="/loguser">
+                    <h1><%=searchUser.fullname%></h1>
+                    <p><%=searchUser.posts.length%> Posts</p>
+                </a>
+                     
+              <% } %>
+            </div>
+          </div>
+        </div>
+    <% } else { %>
+        <div id="container" class="container">
+            <h1>USER NOT FOUND</h1>
+           </div>
+    <% } %>
+<% include ./partials/footer2.ejs %>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forgotten Password | Can't Log</title>
+ <link rel="shortcut icon" href="../../images/facebook.ico" type="image/x-icon">
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/stylesheets/profile.css" />
+    <style>
+        #container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: calc(100% - 250px);
+        }
+        #forgot-form{
+            /* padding: 15px 20px; */
+            width: 500px;
+            height: 300px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgb(169, 168, 168);
+            position: relative;
+        }
+        #forgot-form h3{
+            padding: 15px 20px;
+            padding-top: 19px;
+            font-size: 22px;
+            font-weight: 650;
+            letter-spacing: 0.2px;
+        }
+        #forgot-form p{
+            font-size: 18px;
+            padding: 10px 20px;
+            font-weight: 500;
+            /* padding-bottom: 20px; */
+        }
+        #forgot-form form{
+            /* padding: 10px 20px; */
+            width: 100%;
+            /* margin-top: 6px; */
+        }
+        #forgot-form form input:nth-child(1){
+            margin: 12px 20px;
+            width: 92%;
+            padding: 15px 15px;
+            font-size: 17.5px;
+            border-radius: 5px;
+            outline-color: #dadada;
+            border: 1px solid #dadada;
+            font-weight: 500;
+        }
+        #forgot-form form input::placeholder{
+           font-weight: 450;
+           opacity: .8;
+        }
+        hr{
+            opacity: .4;
+        }
+        #forgot-form>form hr{
+            margin-top: 10px;
+            margin-bottom: 15px;
+            opacity: .4;
+        }
+        #forgot-form form input:nth-last-child(1){
+            padding: 9px 22px;
+            font-size: 17px;
+            font-weight: 550;
+            border-radius: 6px;
+            border: none;
+            background-color: royalblue;
+            color: #fff;
+            position: relative;
+            left: 56%;
+            cursor: pointer;
+            transition: all ease 0.2s;
+        }
+        #forgot-form form input:nth-last-child(1):active{
+            scale: .9;
+            
+        }
+        #submit-email-btn{
+         display: none;
+        }
+        #forgot-form form a{
+            padding: 9px 22px;
+            text-decoration: none;
+            background-color: #e4e6eb;
+            border-radius: 6px;
+            color: #000;
+            font-weight: 650;
+            position: relative;
+            left: 55%;
+            /* bottom: 15%; */
+            cursor: pointer;
+        }
+        label{
+         position: absolute;
+         left: 5%;
+         top: 44%;
+         color: red;
+         font-size: 13px;
+         display: none;
+        }
+        #forgot-mb{
+          display: none;
+        }
+        @media (max-width: 600px) {
+       #page1{
+        display: none;
+       }
+       #main{
+        width: 100vw;
+        height: 92vh;
+        background-color: #dadada;
+       }
+       #forgot-mb{
+        display: flex;
+        flex-direction: column;
+        gap: 7vw;
+        width: 100%;
+        padding: 3vw 3vw;
+       }
+       #forgot-mb a{
+        text-decoration: none;
+        color: #000;
+       }
+       #forgot-content h2{
+        letter-spacing: 0.3vw;
+        margin-bottom: 1.7vw;
+       }
+       #forgot-content p{
+        opacity: .5;
+       }
+       #email-inp-mb{
+        width: 100%;
+        padding: 4vw 2.5vw;
+        font-size: 5vw;
+        border-radius: 8px;
+        border: 1px solid black;
+       }
+       form{
+        position: relative;
+       }
+       form #label-mb {
+        display: none;
+        padding-left: 1vw;
+        position: static;
+        opacity: .4;
+       }
+       form p{
+        margin-top: 3vw;
+        font-size: 3.9vw;
+        opacity: .5;
+       }
+       #submit-email-btn-mb{
+        margin-top: 5vw;
+        width: 100%;
+        padding: 4vw 0;
+        border-radius: 40px;
+        background-color: royalblue;
+        color: #fff;
+        /* font-weight: 550; */
+        font-size: 4.5vw;
+        border: none;
+        letter-spacing: 0.1vw;
+        display: none;
+       }
+       form h5{
+        text-align: center;
+        margin-top: 4vw;
+        font-weight: 500;
+        letter-spacing: 0.1vw;
+       }
+          
+        }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <div id="forgot-mb">
+        <a href="/logout">
+        <i style="font-size: 9vw;" class="ri-arrow-left-line"></i>
+      </a>
+        <div id="forgot-content">
+          <h2>Find your account</h2>
+          <p>Enter your email address</p>
+        </div>
+        
+        <form action="/forgot" method="post">
+          <label id="label-mb" for="">email does'nt exists</label>
+          <input id="email-inp-mb" name="email" type="text" placeholder="Email address">
+          <p>you may receive Whatsapp and SMS notifications from us for security and login purposes.</p>
+          <input id="submit-email-btn-mb" type="submit" value="Find account">
+          <h5>Search by email instead</h5>
+        </form>
+      </div>
+      <div id="page1">
+        <div id="nav">
+          <div id="nav-prt1">
+            <a style="border-radius: 50%;" href="/profile">
+              <img style="width: 120px; height: 22px;" id="fblogo"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Facebook_Logo_%282019%29.svg/1280px-Facebook_Logo_%282019%29.svg.png"
+                alt=""
+              />
+            </a>
+         
+          </div>
+        </div>
+        <div id="container">
+            <div id="forgot-form">
+              <h3>Find Your Account</h3>
+              <hr>
+              <!-- <p>Please enter your email address or mobile number to search for your account.</p> -->
+              <p>Please enter your email address to search for your account.</p>
+              <label id="label" for="">email does'nt exists</label>
+              <form action="/forgot" method="post">
+                <input id="email-inp" name="email" type="text" placeholder="Email address">
+                <hr>
+                <a href="/logout">Cancel</a>
+                <input id="submit-email-btn" type="submit" value="Search">
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"
+  integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script>
+var email_inp = document.querySelector("#email-inp")
+var submit_btn = document.querySelector("#submit-email-btn")
+
+
+email_inp.addEventListener("input", function(){
+  if(email_inp.value.length > 0){
+    axios.get(`/forgotmail/${email_inp.value}`).then(function (resp) {
+        if (resp.data) {
+          email_inp.style.outlineColor = "red";
+          email_inp.style.borderColor = "red";
+          document.querySelector("#label").style.display = "initial";
+          submit_btn.style.display = "none";
+          // submit_btn.style.opacity = 0.4
+        } else {
+          email_inp.style.outlineColor = "royalblue";
+          email_inp.style.borderColor = "#dadada";
+          document.querySelector("#label").style.display = "none";
+          submit_btn.style.display = "initial";
+          
+          
+        }
+      });
+    }
+    else{
+      email_inp.style.outlineColor = "#dadada";
+          email_inp.style.borderColor = "#dadada";
+          document.querySelector("#label").style.display = "none";
+          submit_btn.style.display = "none";
+          
+         
+    }
+})
+var email_inp_mb = document.querySelector("#email-inp-mb")
+var submit_btn_mb = document.querySelector("#submit-email-btn-mb")
+email_inp_mb.addEventListener("input", function(){
+  if(email_inp_mb.value.length > 0){
+    axios.get(`/forgotmail/${email_inp_mb.value}`).then(function (resp) {
+        if (resp.data) {
+          email_inp_mb.style.outlineColor = "red";
+          email_inp_mb.style.borderColor = "red";
+          document.querySelector("#label-mb").style.display = "initial";
+          submit_btn_mb.style.display = "none";
+        } else {
+          email_inp_mb.style.outlineColor = "royalblue";
+          email_inp_mb.style.borderColor = "#dadada";
+          document.querySelector("#label-mb").style.display = "none";
+          submit_btn_mb.style.display = "initial";
+          
+        }
+      });
+    }
+    else{
+      email_inp_mb.style.outlineColor = "#dadada";
+          email_inp_mb.style.borderColor = "#dadada";
+          document.querySelector("#label-mb").style.display = "none";
+          submit_btn_mb.style.display = "none";
+    }
+})
+</script>
+</body>
+</html>

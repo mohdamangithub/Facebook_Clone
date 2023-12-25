@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Change Your Password</title>
+ <link rel="shortcut icon" href="../../images/facebook.ico" type="image/x-icon">
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/stylesheets/profile.css" />
+    <style>
+        #container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: calc(100% - 60px);
+        }
+        #forgot-form{
+            /* padding: 15px 20px; */
+            width: 500px;
+            height: 360px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgb(169, 168, 168);
+            margin-bottom: 70px;
+        }
+        #forgot-form h3{
+            padding: 0px 20px;
+            padding-top: 19px;
+            font-size: 22px;
+            font-weight: 650;
+            letter-spacing: 0.2px;
+        }
+        #forgot-form h4{
+            padding: 0px 20px;
+            /* font-size: 22px; */
+            font-weight: 650;
+            letter-spacing: 0.2px; 
+        }
+        #forgot-form p{
+            font-size: 17px;
+            padding: 10px 20px;
+            font-weight: 500;
+        }
+        #forgot-form form{
+            /* padding: 10px 20px; */
+            width: 100%;
+        }
+        #forgot-form form input:nth-child(1){
+            margin: 12px 20px;
+            width: 92%;
+            padding: 15px 15px;
+            font-size: 17.5px;
+            border-radius: 5px;
+            outline-color: royalblue;
+            border: 1px solid #dadada;
+            font-weight: 500;
+        }
+        #forgot-form form input:nth-child(2){
+            margin: 0px 20px;
+            width: 92%;
+            padding: 15px 15px;
+            font-size: 17.5px;
+            border-radius: 5px;
+            outline-color: royalblue;
+            border: 1px solid #dadada;
+            font-weight: 500;
+            margin-bottom: 10px
+        }
+        #forgot-form form input::placeholder{
+           font-weight: 450;
+           opacity: .8;
+        }
+        hr{
+            opacity: .4;
+        }
+        #forgot-form>form hr{
+            margin-top: 10px;
+            margin-bottom: 20px;
+            opacity: .4;
+        }
+        #forgot-form form input:nth-last-child(1){
+            padding: 9px 22px;
+            font-size: 17px;
+            font-weight: 550;
+            border-radius: 6px;
+            border: none;
+            background-color: royalblue;
+            color: #fff;
+            position: relative;
+            left: 56%;
+            cursor: pointer;
+            transition: all ease 0.2s;
+        }
+        #forgot-form form input:nth-last-child(1):active{
+            scale: .9;
+        }
+        #forgot-form form a{
+            padding: 9px 22px;
+            text-decoration: none;
+            background-color: #e4e6eb;
+            border-radius: 6px;
+            color: #000;
+            font-weight: 650;
+            position: relative;
+            left: 55%;
+            cursor: pointer;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <div id="page1">
+        <div id="nav">
+          <div id="nav-prt1">
+            <a style="border-radius: 50%;" href="/profile">
+              <img style="width: 120px; height: 22px;" id="fblogo"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Facebook_Logo_%282019%29.svg/1280px-Facebook_Logo_%282019%29.svg.png"
+                alt=""
+              />
+            </a>
+         
+          </div>
+        </div>
+        <div id="container">
+            <div id="forgot-form">
+              <h3>Change Your Password</h3>
+              <img src="../images/profiledp/<%=user.profilepic%>" alt="">
+              <h4 style="color: green;"><%=user.fullname%></h4>
+              <hr>
+              <p>Please enter your new password for your account.</p>
+              <form action="/changepass/<%=user._id%>" method="post">
+                <input name="password" type="password" placeholder="New Password">
+                <input name="confirmpassword" type="password" placeholder="Confirm Password">
+                <hr>
+                <a href="/profile">Cancel</a>
+                <input type="submit" value="Search">
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facebook</title>
+    <link
+      rel="shortcut icon"
+      href="../../images/facebook.ico"
+      type="image/x-icon"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/stylesheets/profile.css" />
+    <style>
+      #nav-prt2 .square:nth-child(1) {
+        border: none;
+        color: #000;
+      }
+      #nav-prt2 .square:nth-child(1) i {
+        color: transparent;
+        -webkit-text-stroke: 2.5px black;
+      }
+      #nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+
+      #page1 {
+        /* padding: 0 100px; */
+        width: 100%;
+        height: 100%;
+      }
+      #page1-content {
+        width: 100%;
+        height: 80%;
+        background-color: #fff;
+      }
+      #child1 {
+        margin: 0 240px;
+        width: 70%;
+        height: 70%;
+        /* background-color: #fff; */
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        filter: drop-shadow(0px 0px 5px #cbcbcb);
+        position: relative;
+      }
+      #child1 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+      #profile-elem {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        height: 100px;
+        /* background-color: #fff; */
+        padding: 10px 30px;
+      }
+      #profile-pic {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        padding: 5px;
+        background-color: #fff;
+      }
+      #page2-content {
+        display: flex;
+        /* align-items: center; */
+        /* justify-content: center; */
+        width: 100%;
+        /* height: 50%; */
+        padding: 20px 0;
+        background-color: #f0f2f5;
+      }
+      .elem2 {
+        width: 50%;
+      }
+      #el2-btm {
+        display: flex;
+        align-items: center;
+        /* justify-content: center; */
+        gap: 50px;
+        /* margin-left: -12px; */
+      }
+      .el2-btm-child {
+        width: 200px;
+      }
+      button {
+        transition: all ease 0.2s;
+        cursor: pointer;
+      }
+      button:active {
+        scale: 0.9;
+      }
+      .loader {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background-color: #dadadabe;
+      }
+      .loader #content {
+        overflow: hidden;
+        width: 30%;
+        height: 85%;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 6px 10px rgba(202, 202, 202, 0.842);
+      }
+      .loader#container {
+        display: flex;
+        position: relative;
+        width: 70%;
+        height: 80%;
+        /* background-color: red; */
+      }
+      .loader #nav {
+        padding: 9px 12px;
+        padding-left: 8px;
+        padding-right: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 75px;
+        /* background-color: red; */
+        border-bottom: 1px solid #dadada;
+      }
+      .loader #nav-prt1 {
+        font-size: 15px;
+      }
+      .loader #nav > i {
+        font-size: 34px;
+        opacity: 0.7;
+        cursor: pointer;
+      }
+      .loader #nav > i:hover {
+        opacity: 1;
+      }
+      .loader #inp {
+        width: 100%;
+        height: calc(100% - 75px);
+        /* background-color: #dadada; */
+      }
+      .loader #inp form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding-top: 18px;
+        padding-bottom: 15px;
+        width: 100%;
+        /* height: 60%; */
+        /* background-color: red; */
+      }
+      .loader #inp form input {
+        background-color: #f5f6f7;
+        padding: 13px 16px;
+        width: 90%;
+        font-size: 17px;
+        outline-color: royalblue;
+        /* outline: none; */
+        border: 1px solid #dadada;
+        border-radius: 6px;
+        color: #000;
+        font-weight: 530;
+      }
+      .loader #inp form input:nth-last-child(1) {
+        margin-top: 6px;
+        background-color: #42b72a;
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        font-size: 20px;
+        width: 230px;
+        padding: 11px;
+        cursor: pointer;
+      }
+      .loader#inp form input:nth-last-child(1):hover {
+        background-color: #37a422;
+        color: #fff;
+      }
+      .loader #inp p {
+        /* margin-top: px; */
+        padding: 6px 10px;
+        padding-left: 18px;
+        font-size: 12px;
+      }
+      #container-mb{
+        display: none;
+      }
+      @media (max-width: 600px) {
+        #main {
+          width: 100vw;
+          height: 92.6vh;
+        }
+        #nav {
+          display: none;
+        }
+        #container {
+          display: none;
+        }
+        #page1 {
+          width: 100%;
+          height: 100%;
+          background-color: red;
+        }
+        #container-mb {
+      display: initial;
+      width: 100%;
+      height: 100%;
+      background-color: #f5f5f5;
+      /* overflow: auto; */
+      overflow-x: hidden;
+    }
+    #nav {
+      display: none;
+    }
+    #USER-NAV {
+      position: sticky;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 8%;
+      background-color: #f5f5f5;
+      padding: 0 2.5vw;
+      flex-shrink: 0;
+      border-bottom: 1px solid #dadada;
+      box-shadow: 0px 0px 6px 1px grey;
+    }
+    #USER-NAV i {
+      font-size: 9vw;
+    }
+    #USER-NAV-PART2 {
+      display: flex;
+      align-items: center;
+    }
+    #USER-PROFILE {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: relative;
+      width: 100%;
+      height: 42%;
+     background-color: #fff;
+    }
+    #USER-PROFILE > img {
+      width: 100%;
+      height: 70%;
+      object-fit: cover;
+    }
+    #USER-PROFILE-PART2 {
+      padding: 0 2.5vw;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2vw;
+      bottom: 2vw;
+    }
+    #USER-PROFILE-PART2 img {
+      width: 35vw;
+      height: 35vw;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    #USER-FRIEND {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      padding: 0 2.5vw;
+      width: 100%;
+      height: 6%;
+      background-color: #fff;
+      /* gap: 3vw; */
+      justify-content: space-between;
+    }
+    #USER-FRIEND button {
+      font-size: 4.1vw;
+      padding: 2.7vw 10vw;
+      border: none;
+      border-radius: 5px;
+      background-color: #dadada;
+      font-weight: 500;
+    }
+    #USER-FRIEND button:nth-child(2){
+      border: none;
+      background-color: royalblue;
+      color: #fff;
+    }
+    #USER-FRIEND button:nth-last-child(1){
+      padding: 2.5vw 3vw;
+      font-size: 4vw;
+    }
+    #editProfile-mb{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999999;
+    background-color: #dadadabe;
+  }
+  #editProfile-mb #content {
+    overflow: hidden;
+    width: 90%;
+    height: 85%;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 6px 10px rgba(202, 202, 202, 0.842);
+  }
+  #editProfile-mb #container {
+    display: flex;
+    position: relative;
+    width: 70%;
+    height: 80%;
+    /* background-color: red; */
+  }
+  #editProfile-mb #nav {
+    padding: 9px 18px;
+   
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 12%;
+    /* background-color: red; */
+    border-bottom: 1px solid #dadada;
+  }
+  
+  #editProfile-mb #nav > i {
+    font-size: 34px;
+    opacity: 0.7;
+    cursor: pointer;
+  }
+  #editProfile-mb #nav > i:hover {
+    opacity: 1;
+  }
+  #editProfile-mb #inp {
+    width: 100%;
+    height: 88%;
+    /* background-color: #dadada; */
+  }
+  #editProfile-mb #inp form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding-top: 18px;
+    padding-bottom: 15px;
+    width: 100%;
+    /* height: 60%; */
+    /* background-color: red; */
+  }
+  #editProfile-mb #inp form input {
+    background-color: #f5f6f7;
+    padding: 13px 16px;
+    width: 90%;
+    font-size: 17px;
+    outline-color: royalblue;
+    /* outline: none; */
+    border: 1px solid #dadada;
+    border-radius: 6px;
+    color: #000;
+    font-weight: 530;
+  }
+  #editProfile-mb #inp form input:nth-last-child(1) {
+    margin-top: 6px;
+    background-color: #42b72a;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 20px;
+    width: 230px;
+    padding: 11px;
+    cursor: pointer;
+  }
+  #editProfile-mb #inp form input:nth-last-child(1):hover {
+    background-color: #37a422;
+    color: #fff;
+  }
+  #editProfile-mb #inp p {
+    /* margin-top: px; */
+    padding: 6px 10px;
+    padding-left: 18px;
+    font-size: 12px;
+  }
+  .mb-pencil {
+    position: absolute;
+    width: 8vw;
+    height: 8vw;
+    font-size: 5vw;
+    border-radius: 50%;
+    background-color: #dadada;
+    right: 3vw;
+    bottom: 9vw;
+    box-shadow: 0px 0px 10px grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all ease 0.2s;
+  }
+  .mb-pencil:active {
+    scale: 0.9;
+  }
+  .mb-pencil-cover {
+    position: absolute;
+    width: 8vw;
+    height: 8vw;
+    font-size: 5vw;
+    border-radius: 50%;
+    background-color: #dadada;
+    right: 3vw;
+    top: 56%;
+    box-shadow: 0px 0px 10px grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all ease 0.2s;
+  }
+  .mb-pencil-cover:active {
+    scale: 0.9;
+  }
+  #allPosts{
+    padding-top: 2.5vh;
+  }
+  
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <div id="page1">
+        <div id="nav">
+          <div id="nav-prt1">
+            <a style="border-radius: 50%" href="/profile">
+              <img
+                id="fblogo"
+                src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg"
+                alt=""
+              />
+            </a>
+            <form action="/searchUser" method="post">
+              <div id="search">
+                <i class="ri-search-line"></i>
+                <input
+                  id="searchUserInp"
+                  name="search"
+                  type="text"
+                  placeholder="Search Facebook"
+                />
+              </div>
+            </form>
+          </div>
+          <div id="nav-prt2">
+            <div class="square">
+              <i class="ri-home-4-fill"></i>
+            </div>
+            <div class="square">
+              <i class="ri-tv-2-line"></i>
+            </div>
+            <div class="square">
+              <i class="ri-store-2-line"></i>
+            </div>
+            <div class="square">
+              <i class="ri-group-2-line"></i>
+            </div>
+            <div class="square">
+              <i class="ri-gamepad-line"></i>
+            </div>
+          </div>
+          <div id="nav-prt3">
+            <div id="logout-list">
+              <div id="log-child1">
+                <div id="log-child1-prt1">
+                  <a href="/profile">
+                    <img
+                      src="../images/profiledp/<%=user.profilepic%>"
+                      alt=""
+                    />
+                    <h3><%= user.fullname%></h3></a
+                  >
+                </div>
+                <div id="log-child1-prt2">
+                  <a href="">See all profiles</a>
+                </div>
+              </div>
+              <a href="">
+                <div class="prt1">
+                  <div class="circle">
+                    <i class="ri-settings-5-fill"></i>
+                  </div>
+                  <h4>Setting & privacy</h4>
+                </div>
+                <i
+                  style="font-size: 35px; opacity: 0.6"
+                  class="ri-arrow-right-s-line"
+                ></i>
+              </a>
+              <a href="">
+                <div class="prt1">
+                  <div class="circle">
+                    <i class="ri-question-fill"></i>
+                  </div>
+                  <h4>Help & support</h4>
+                </div>
+                <i
+                  style="font-size: 35px; opacity: 0.6"
+                  class="ri-arrow-right-s-line"
+                ></i>
+              </a>
+              <a href="">
+                <div class="prt1">
+                  <div class="circle">
+                    <i class="ri-moon-fill"></i>
+                  </div>
+                  <h4>Display & accessibility</h4>
+                </div>
+                <i
+                  style="font-size: 35px; opacity: 0.6"
+                  class="ri-arrow-right-s-line"
+                ></i>
+              </a>
+              <a href="">
+                <div class="prt1">
+                  <div class="circle">
+                    <i class="ri-feedback-fill"></i>
+                  </div>
+                  <h4>Give feedback</h4>
+                </div>
+              </a>
+              <a href="/logout">
+                <div class="prt1">
+                  <div class="circle">
+                    <i class="ri-logout-box-r-fill"></i>
+                  </div>
+                  <h4>Log out</h4>
+                </div>
+              </a>
+              <p>
+                <a href="">Privacy</a> · <a href="">Terms</a> ·
+                <a href="">Advertising</a> · <a href="">Ad choices</a
+                ><i class="ri-google-play-line"></i> · <a href="">Cookies</a> ·
+                <a href="">More</a> · Meta ©️ 2023
+              </p>
+            </div>
+            <div class="circle">
+              <i class="ri-menu-line"></i>
+            </div>
+            <div class="circle">
+              <i class="ri-messenger-fill"></i>
+            </div>
+            <div class="circle">
+              <i class="ri-notification-2-fill"></i>
+            </div>
+
+            <div class="circle">
+              <img
+                id="image-click"
+                src="../images/profiledp/<%=user.profilepic%>"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="container">
+          <div id="page1">
+            <div class="loader">
+              <div id="content">
+                <div id="nav">
+                  <div id="nav-prt1">
+                    <h1 style="font-size: 27px">Update Your Profile</h1>
+                  </div>
+                  <i id="close-icon" class="ri-close-fill"></i>
+                </div>
+              </div>
+            </div>
+            <div id="page1-content">
+              <div id="child1">
+                <img src="../images/profiledp/<%=userdata.coverpic%>" alt="" />
+                <div id="profile-elem">
+                  <div
+                    style="display: flex; align-items: center; gap: 20px"
+                    id="part1"
+                  >
+                    <div style="position: relative" id="profile-pic">
+                      <img
+                        style="
+                          width: 100%;
+                          height: 100%;
+                          border-radius: 50%;
+                          border: 1px solid #dadada;
+                        "
+                        src="../images/profiledp/<%=userdata.profilepic%>"
+                        alt=""
+                      />
+                      <!-- <form style="display: none;" id="profile-form" action="/uploaddp" method="post" enctype="multipart/form-data">
+                <input  type="file" name="profiledp" id="inpfile">
+                <input  type="submit" value="Upload">
+              </form> -->
+                    </div>
+                    <h1 style="margin-top: 75px"><%= userdata.fullname%></h1>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 10px;
+                      padding-bottom: 30px;
+                    "
+                    id="part2"
+                  >
+                    <button
+                      class="create-btn"
+                      style="
+                        padding: 10px 15px;
+                        border: none;
+                        background-color: #dadada;
+                        color: #000;
+                        word-spacing: 2px;
+                        font-size: 16px;
+                        font-weight: 500;
+                        border-radius: 6px;
+                      "
+                    >
+                      <i class="ri-user-follow-fill"></i> Friends
+                    </button>
+                    <button
+                      class="story"
+                      style="
+                        padding: 10px 15px;
+                        border: none;
+                        background-color: royalblue;
+                        color: #fff;
+                        word-spacing: 2px;
+                        font-size: 16px;
+                        font-weight: 500;
+                        border-radius: 6px;
+                      "
+                    >
+                      <i class="ri-wechat-2-fill"></i> Message
+                    </button>
+                    <button
+                      style="
+                        padding: 5px 8px;
+                        border: none;
+                        background-color: #dadada;
+                        color: #000;
+                        word-spacing: 2px;
+                        font-weight: 500;
+                        border-radius: 6px;
+                      "
+                    >
+                      <i
+                        style="font-size: 25px"
+                        class="ri-arrow-drop-down-line"
+                      ></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              style="display: flex; flex-direction: column; align-items: center"
+              id="page2-content"
+            >
+              <% userdata.posts.reverse().forEach(function(data){ %>
+              <div style="width: 50%" class="elem3" id="elem3">
+                <div class="el3-top">
+                  <div class="el3-top-left">
+                    <div class="image">
+                      <img
+                        style="object-fit: cover"
+                        src="../images/profiledp/<%=userdata.profilepic%>"
+                        alt=""
+                      />
+                    </div>
+                    <div class="name">
+                      <h3><%=userdata.fullname%></h3>
+                      <p><%=data.time%></p>
+                    </div>
+                  </div>
+                
+                </div>
+                <% if (!data.picture) { %>
+                  <h1 style="font-size: 20px; font-weight: 500;"><%=data.post%></h1>
+                  <% } else{ %>
+                    <h1 style="font-size: 20px; font-weight: 500;"><%=data.post%></h1>
+                    <img id="post-photo" style="width: 100%; height: 300px; object-fit: cover; display: flex;" src="/images/profiledp/<%=data.picture%>" alt="">
+                    <% } %>
+                <div class="el3-btm">
+                  <div class="el3-btm-child">
+                    <% if(data.likes.length > 0){ %>
+                    <i style="color: royalblue" class="ri-thumb-up-fill"></i>
+                    <p><%=data.likes.length%></p>
+                    <% } %>
+                  </div>
+                  <div class="el3-btm-child2">
+                    <div class="left">
+                      <a id="like" href="/like/<%=data._id%>">
+                        <% if(data.likes.indexOf(userdata._id) === -1){ %>
+                        <i class="ri-thumb-up-line"></i>
+                        <% } else{ %>
+                        <i
+                          style="color: royalblue"
+                          class="ri-thumb-up-fill"
+                        ></i>
+                        <% } %> <% if(data.likes.indexOf(userdata._id) === -1){
+                        %>
+                        <p>Like</p>
+                        <% } else{ %>
+                        <p style="color: royalblue">Like</p>
+                        <% } %>
+                      </a>
+                    </div>
+
+                    <div class="left comments">
+                      <i class="ri-chat-1-line"></i>
+                      <p>Comment</p>
+                    </div>
+                    <div class="left">
+                      <i class="ri-share-forward-line"></i>
+                      <p>Share</p>
+                    </div>
+                  </div>
+                </div>
+                <form class="commentForm" action="/submitComment" method="post">
+                  <img src="../images/profiledp/<%=userdata.profilepic%>" alt="" />
+                  <input
+                    class="commentInp"
+                    name="comment"
+                    type="text"
+                    placeholder="Write Comment Here"
+                  />
+                  <div class="closeComment">
+                    <i class="ri-close-fill"></i>
+                  </div>
+                </form>
+              </div>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+        <div id="container-mb">
+          <div id="USER-NAV">
+            <a style="text-decoration: none; color: #000;" href="/profile"><i class="ri-arrow-left-line"></i></a>
+            <div id="USER-NAV-PART2">
+              <h3><%=userdata.fullname%></h3>
+              <i class="ri-arrow-down-s-fill"></i>
+            </div>
+            <i class="ri-search-line"></i>
+          </div>
+          <div id="USER-PROFILE">
+            <img
+              src="../images/profiledp/<%=userdata.coverpic%>"
+              alt=""
+            />
+                
+            <!-- <div class="mb-pencil-cover"><i class="ri-camera-fill"></i></div> -->
+            <div id="USER-PROFILE-PART2">
+              <img style="box-shadow: 0px 0px 10px 3px #b6b6b6;"
+                src="../images/profiledp/<%=userdata.profilepic%>"
+                alt=""
+              />
+              <!-- <div class="mb-pencil"><i class="ri-camera-fill"></i></div> -->
+
+              <h3><%=userdata.fullname%></h3>
+            </div>
+          </div>
+          <div id="USER-FRIEND">
+            <button id="addStory"><i class="ri-user-follow-fill"></i> Friends</button>
+            <button id="openEdit" onclick="editProfile()"><i class="ri-messenger-fill"></i> Message</button>
+            <button><i class="ri-more-fill"></i></button>
+          </div>
+          <div id="allPosts">
+            <% userdata.posts.forEach(function(data){ %>
+              <div id="posts-mb">
+                <div class="el3-top">
+                  <div class="el3-top-left">
+                   <div class="image">
+                      <img
+                        style="object-fit: cover"
+                        src="../images/profiledp/<%=userdata.profilepic%>"
+                        alt=""
+                      />
+                    </div>
+                    <% if(data.userId.username !== userdata.username){ %>
+                      <a
+                      style="text-decoration: none; color: #000; display: flex; align-items: center; gap: 4vw;"
+                      href="/loguser/<%=data.userId.username%>"
+                      >
+                    <div class="name">
+                        <h3><%=userdata.fullname%></h3>
+                        <p><%=data.time%></p>
+                      </div></a
+                    >
+                    <% } else{ %>
+                    <a style="text-decoration: none; color: #000" href="/loguser"
+                      ><div class="name">
+                        <h3><%=data.userId.fullname%></h3>
+                        <p><%=data.time%></p>
+                      </div></a
+                    >
+                    <% } %>
+                  </div>
+                  <div class="el3-top-right" style="opacity: 0;">
+                    <div class="icons">
+                      <i class="ri-more-fill"></i>
+                    </div>
+                    <div class="icons">
+                      <i class="ri-close-fill"></i>
+                    </div>
+                  </div>
+                </div>
+                <% if (!data.picture) { %>
+                  <h1 style="padding: 4vw 0vw; font-size: 5vw; font-weight: 500;"><%=data.post%></h1>
+                  <% } else{ %>
+                   <h1 style="padding: 4vw 0vw; font-size: 5vw; font-weight: 500;"><%=data.post%></h1>
+                    <img id="post-photo" style="width: 100%; height: 300px; margin-bottom: 1vw; object-fit: cover; display: flex;" src="/images/profiledp/<%=data.picture%>" alt="">
+                    <% } %>
+                <div class="el3-btm">
+                  <div class="el3-btm-child">
+                    <% if(data.likes.length > 0){ %>
+                    <i style="color: royalblue;font-size: 4vw;" class="ri-thumb-up-fill"></i>
+                    <p style="font-size: 4vw;"><%=data.likes.length%></p>
+                    <% } %>
+                  </div>
+                  <div class="el3-btm-child2">
+                    <div class="left">
+                      <a id="like" href="/like/<%=data._id%>">
+                        <% if(data.likes.indexOf(userdata._id) === -1){ %>
+                        <i style="font-size: 4vw;" class="ri-thumb-up-line"></i>
+                        <% } else{ %>
+                        <i style="color: royalblue; font-size: 4vw;" class="ri-thumb-up-fill"></i>
+                        <% } %> <% if(data.likes.indexOf(userdata._id) === -1){ %>
+                        <p style="font-size: 4vw;">Like</p>
+                        <% } else{ %>
+                        <p style=" color: royalblue; font-size: 4vw;">Like</p>
+                        <% } %>
+                      </a>
+                    </div>
+          
+                    <div class="left comments">
+                      <i style="font-size: 4vw;" class="ri-chat-1-line"></i>
+                      <p style="font-size: 4vw;">Comment</p>
+                    </div>
+                    <div class="left">
+                      <i style="font-size: 4vw;" class="ri-share-forward-line"></i>
+                      <p style="font-size: 4vw;">Share</p>
+                    </div>
+                  </div>
+                </div>
+                <form
+                class="commentForm"
+                action="/submitComment/<%=data._id%>"
+                method="post"
+              >
+                <img src="../images/profiledp/<%=userdata.profilepic%>" alt="" />
+                <input
+                  class="commentInp"
+                  name="comment"
+                  type="text"
+                  placeholder="Write Comment Here"
+                />
+                <div class="closeComment">
+                  <i class="ri-close-fill"></i>
+                </div>
+              </form>
+              </div>
+              <% }) %>
+            </div>
+        </div>
+        <!-- <% include ./partials/footer2.ejs %> -->
+      </div>
+    </div>
+    <script>
+      var comments = document.querySelectorAll(".comments");
+  var commentForm = document.querySelectorAll(".commentForm");
+  var commentInp = document.querySelectorAll(".commentInp");
+  var closeComment = document.querySelectorAll(".closeComment");
+  var el3_btm_child2 = document.querySelector(".el3-btm-child2");
+  
+comments.forEach(function(elem, index){
+elem.addEventListener("click", function(){
+  commentForm.forEach(function(form){
+   form.style.display = 'none'
+  })
+  commentForm[index].style.display = 'flex'
+  commentInp[index].focus()
+})
+})
+
+closeComment.forEach(function(close, index){
+close.addEventListener("click", function(){
+ commentForm[index].style.display = "none"
+})
+})
+var log = document.querySelector("#nav-prt3 #image-click");
+var log_list = document.querySelector("#logout-list");
+var main = document.querySelector("#page1");
+    var flag = 0;
+    log.addEventListener("click", function (dets) {
+  if (flag === 0) {
+    log_list.style.display = "flex";
+    flag=1
+  }else{
+    log_list.style.display = "none"
+    flag =0
+  }
+});
+    </script>
+  </body>
+</html>

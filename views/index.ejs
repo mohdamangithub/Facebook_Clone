@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log in to Facebook</title>
+    <link
+      rel="shortcut icon"
+      href="../../images/facebook.ico"
+      type="image/x-icon"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <div id="main">
+      <div id="loader">
+        <div id="content">
+          <div id="nav">
+            <div id="nav-prt1">
+              <h1>Sign Up</h1>
+              <p>It's quick and easy.</p>
+            </div>
+            <i id="close-icon" class="ri-close-fill"></i>
+          </div>
+          <div id="inp">
+            <form action="/register" method="post">
+              <input type="text" name="fullname" placeholder="Fullname" />
+              <div id="username" style="width: 90%; display: flex; flex-direction: column; gap: 4px;">
+                <label style="display: none; color: red; font-size: 13px;"
+              for=""
+              >username already exists.</label
+            >
+            <input style="margin-top: -2px;"
+              class="inp"
+              type="text"
+              name="username"
+              placeholder="Username"
+            />
+              </div>
+   
+            
+         
+              <input style="margin-top: -2px;" type="text" name="number" placeholder="Phone Number" />
+              <input style="margin-top: -2px;" type="email" name="email" placeholder="Email Address" />
+              <input
+                type="password"
+                name="password"
+                placeholder="New Password"
+              />
+              <input style="margin-top: -2px;" type="number" name="age" placeholder="Age" />
+              <input id="signbtn" type="submit" value="Sign Up" />
+            </form>
+            <p>
+              People who use our service may have uploaded your contact
+              information to Facebook. <a href="">Learn more.</a>
+            </p>
+            <p>
+              By clicking Sign Up, you agree to our Terms, Privacy Policy and
+              <a href="">Cookies Policy</a>. You may receive SMS notifications
+              from us and can opt out at any time.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="main-part1">
+        <p>English (US) <i class="ri-arrow-down-s-line"></i></p>
+      <img src="../images/facebook.ico" alt="">
+      </div>
+      <form id="mobile-form" action="/login" method="post">
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <input id="submit" type="submit" value="Log in">
+        <a href="/forgot">Forgot Password?</a>
+      </form>
+      <div id="main-part2">
+        <button id="create-btn2">Create new account</button>
+        <p> <i class="ri-meta-fill"></i> Meta</p>
+      </div>
+      <div id="container">
+        <div id="left">
+          <img
+            src="https://static.xx.fbcdn.net/rsrc.php/y8/r/dF5SId3UHWd.svg"
+            alt=""
+          />
+          <h1>
+            Facebook helps you connect and share with the people in your life.
+          </h1>
+        </div>
+        <div id="right">
+          <div id="right-in">
+            <form action="/login" method="post">
+              <input type="text" name="username" placeholder="Username" />
+              <!-- <input type="email" name="email" placeholder="Email Address" /> -->
+              <input type="password" name="password" placeholder="Password" />
+              <input type="submit" value="Log In" />
+            </form>
+            <a href="/forgot">Forgotten password?</a>
+            <hr />
+            <input id="create-btn" type="button" value="Create new account" />
+          </div>
+          <p>
+            <a href="">Create a Page</a> for a celebrity, brand or business.
+          </p>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"
+      integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- <script></script> -->
+    <!-- <script src="/javascripts/script.js"></script> -->
+    <script>
+      var inp = document.querySelector(".inp");
+      inp.addEventListener("input", function () {
+        if (inp.value.length > 0) {
+          axios.get(`/userinp/${inp.value}`)
+          .then(function (resp) {
+            if (resp.data) {
+              inp.style.outlineColor = "red";
+              inp.style.borderColor = "red";
+              document.querySelector("label").style.display = "initial";
+              document.querySelector("#signbtn").style.display = "none";
+            } else {
+              inp.style.outlineColor = "royalblue";
+              inp.style.borderColor = "#dadada";
+              document.querySelector("label").style.display = "none";
+              document.querySelector("#signbtn").style.display = "initial";
+            }
+          });
+        }
+      });
+      var create_btn = document.querySelector("#create-btn");
+      var create_btn2 = document.querySelector("#create-btn2");
+var loader = document.querySelector("#loader");
+var close_icon = document.querySelector("#close-icon");
+
+
+create_btn.addEventListener("click", function () {
+  create_btn.style.opacity = 0.6;
+  setTimeout(function () {
+    loader.style.display = "flex";
+  }, 0);
+});
+create_btn2.addEventListener("click", function () {
+  create_btn2.style.opacity = 0.6;
+  setTimeout(function () {
+    loader.style.display = "flex";
+  }, 0);
+});
+close_icon.addEventListener("click", function () {
+  create_btn.style.opacity = 1;
+  loader.style.display = "none";
+});
+
+
+
+
+    </script>
+  </body>
+</html>
